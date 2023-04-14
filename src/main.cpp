@@ -19,7 +19,8 @@ const char* LINE_NAME = "ESP32";
 char ssid[] = "SuOne_2.4";    // ชื่อ Wi-Fi ของคุณ
 char pass[] = "suoneone"; // รหัสผ่านของ Wi-Fi ของคุณ
 char auth[] = BLYNK_AUTH_TOKEN;
-
+char ssid2[]="Suoneone_2.4GHz";
+char pass2[]="Toyo@8635";
 
 void search_wifi()
 {
@@ -44,6 +45,7 @@ void search_wifi()
   }
   //delay(10000); // Wait 10 seconds before scanning again
 }
+
 
 BLYNK_WRITE(V0) {  // เมื่อมีการส่งข้อมูลเข้ามาผ่าน Virtual Pin 1
   int value = param.asInt();  // รับค่าจาก Virtual Pin 1
@@ -139,7 +141,7 @@ BLYNK_WRITE(V5) {  // เมื่อมีการส่งข้อมูล�
     digitalWrite(2,LOW);
     Serial.println("2 Sw6 : off");
   }
-  
+
 }
 
 BLYNK_WRITE(V6) {  // เมื่อมีการส่งข้อมูลเข้ามาผ่าน Virtual Pin 1
