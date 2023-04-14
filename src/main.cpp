@@ -9,6 +9,7 @@
 
 char ssid[] = "Surasak_2.4GHz";    // ชื่อ Wi-Fi ของคุณ
 char pass[] = "suoneone"; // รหัสผ่านของ Wi-Fi ของคุณ
+char auth[] = BLYNK_AUTH_TOKEN;
 void search_wifi()
 {
   Serial.println();
@@ -86,16 +87,24 @@ void setup()
   Serial.begin(9600);
   search_wifi();
   delay(5000);
-  /*WiFi.begin(ssid,pass);
+  //WiFi.begin(ssid,pass);
+  /*
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Connecting to WiFi...");
   }
-  Serial.println("Connected to WiFi");
+  Serial.println("Connected to WiFi : "+String(WiFi.localIP()));
   */
   // เชื่อมต่อกับ Blynk
   Serial.println("Connecting to Bylnk 2.0 .....");
-  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
+  Blynk.begin(auth,ssid,pass);
+  while (Blynk.connect() != true) {
+    // Wait until connected
+    Serial.println(" wait blynk 2.0 ....");
+  }
+
+  //Serial.println("Connected to Blynk!");
+  Serial.println("Connected to WiFi : "+String(WiFi.localIP()));
   Serial.println("connected blynk complete !!!");
 }
 
