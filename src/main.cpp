@@ -14,7 +14,8 @@
 // กำหนดชื่อและ Token ของ Line Notify
 const char* LINE_TOKEN = "S7fWR5EKIjyfagLQ4W8XigR4cZOuwVYI5yHkpvAXLS1";
 const char* LINE_NAME = "ESP32";
-
+int count_timeout =0;
+int switch_wifi =0;
 
 char ssid[] = "SuOne_2.4";    // ชื่อ Wi-Fi ของคุณ
 char pass[] = "suoneone"; // รหัสผ่านของ Wi-Fi ของคุณ
@@ -42,10 +43,9 @@ void search_wifi()
       Serial.println((WiFi.encryptionType(i) == WIFI_AUTH_OPEN)?" ":"*");
       delay(10);
     }
-  }
   //delay(10000); // Wait 10 seconds before scanning again
+  }
 }
-
 
 BLYNK_WRITE(V0) {  // เมื่อมีการส่งข้อมูลเข้ามาผ่าน Virtual Pin 1
   int value = param.asInt();  // รับค่าจาก Virtual Pin 1
@@ -194,11 +194,40 @@ void setup()
   delay(5000);
   // เชื่อมต่อกับ Blynk
   Serial.println("Connecting to Bylnk 2.0 .....");
-  Blynk.begin(auth,ssid,pass);
-  while (Blynk.connect() != true) {
-    // Wait until connected
-    Serial.println(" wait blynk 2.0 ....");
+  //Blynk.begin(auth,ssid,pass);
+  while(WiFi.status() != WL_CONNECTED)
+  {
+    if(count_timeout == 0)
+    {
+      Blynk.begin(auth,ssid,pass);
+      while( WiFi.status() != WL_CONNECTED)
+      {
+        delay(1000);
+        switch_wifi +=1 ;
+        if(switch_wifi > 10)
+        {
+          count_timeout =1;
+        }
+      }
+    }
+    if (count_timeout == 1)
+    {
+      Blynk.begin(auth,ssid2,pass2);
+      while( WiFi.status() != WL_CONNECTED)
+      {
+        delay(1000);
+        switch_wifi +=1 ;
+        if(switch_wifi > 10)
+        {
+          count_timeout =0;
+        }
+      }
+    }
   }
+  //while (Blynk.connect() != true) {
+    // Wait until connected
+    //Serial.println(" wait blynk 2.0 ....");
+  //}
 
 
   //Serial.println("Connected to Blynk!");
