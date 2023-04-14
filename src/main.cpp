@@ -1,4 +1,6 @@
 #include <Arduino.h>
+#include "soc/soc.h"
+#include "soc/rtc_cntl_reg.h"
 #define BLYNK_TEMPLATE_ID "TMPL6b9i2-sZ4"
 #define BLYNK_TEMPLATE_NAME "suhomeNW"
 #define BLYNK_AUTH_TOKEN "nHZcJc9TAiZw_8sn3i3XbPi8Zi62vzS-" // Blynk Token
@@ -173,7 +175,9 @@ BLYNK_WRITE(V7) {  // เมื่อมีการส่งข้อมูล�
 
 void setup()
 {
+  WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); //disable detector
   Serial.begin(9600);//18/19/21/22  15/2/0/4
+  
   pinMode(18,OUTPUT);
   pinMode(19,OUTPUT);
   pinMode(21,OUTPUT);
@@ -198,8 +202,15 @@ void setup()
   Serial.print("Connected to WiFi : ");
   Serial.println(WiFi.localIP());
   Serial.println("connected blynk complete !!!");
-
-
+  Blynk.syncVirtual(V0);
+  Blynk.syncVirtual(V1);
+  Blynk.syncVirtual(V2);
+  Blynk.syncVirtual(V3);
+  Blynk.syncVirtual(V4);
+  Blynk.syncVirtual(V5);
+  Blynk.syncVirtual(V6);
+  Blynk.syncVirtual(V7);
+  Serial.println("Sync value pin !!");
 
 
 
