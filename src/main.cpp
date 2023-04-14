@@ -1,15 +1,24 @@
 #include <Arduino.h>
 #define BLYNK_TEMPLATE_ID "TMPL6b9i2-sZ4"
 #define BLYNK_TEMPLATE_NAME "suhomeNW"
-#define BLYNK_AUTH_TOKEN "nHZcJc9TAiZw_8sn3i3XbPi8Zi62vzS-"
+#define BLYNK_AUTH_TOKEN "nHZcJc9TAiZw_8sn3i3XbPi8Zi62vzS-" // Blynk Token
+//#define LINE_TOKEN "S7fWR5EKIjyfagLQ4W8XigR4cZOuwVYI5yHkpvAXLS1"   // Line TOKEN
 
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <BlynkSimpleEsp32.h>
 
-char ssid[] = "Surasak_2.4GHz";    // ชื่อ Wi-Fi ของคุณ
+
+// กำหนดชื่อและ Token ของ Line Notify
+const char* LINE_TOKEN = "S7fWR5EKIjyfagLQ4W8XigR4cZOuwVYI5yHkpvAXLS1";
+const char* LINE_NAME = "ESP32";
+
+
+char ssid[] = "SuOne_2.4";    // ชื่อ Wi-Fi ของคุณ
 char pass[] = "suoneone"; // รหัสผ่านของ Wi-Fi ของคุณ
 char auth[] = BLYNK_AUTH_TOKEN;
+
+
 void search_wifi()
 {
   Serial.println();
@@ -38,63 +47,144 @@ BLYNK_WRITE(V0) {  // เมื่อมีการส่งข้อมูล�
   int value = param.asInt();  // รับค่าจาก Virtual Pin 1
   Serial.print("Value received Sw1: ");
   Serial.println(value);
+  if(value == 1)
+    {
+      digitalWrite(18,HIGH);
+      Serial.println("18 Sw1 : on");
+    } 
+  if(value == 0)
+  {
+    digitalWrite(18,LOW);
+    Serial.println("18 Sw1 : off");
+  }
 }
 
 BLYNK_WRITE(V1) {  // เมื่อมีการส่งข้อมูลเข้ามาผ่าน Virtual Pin 1
   int value = param.asInt();  // รับค่าจาก Virtual Pin 1
   Serial.print("Value received Sw2: ");
   Serial.println(value);
+  if(value == 1)
+    {
+      digitalWrite(19,HIGH);
+      Serial.println("19 Sw2 : on");
+    } 
+  if(value == 0)
+  {
+    digitalWrite(19,LOW);
+    Serial.println("19 Sw2 : off");
+  }
 }
 
 BLYNK_WRITE(V2) {  // เมื่อมีการส่งข้อมูลเข้ามาผ่าน Virtual Pin 1
   int value = param.asInt();  // รับค่าจาก Virtual Pin 1
   Serial.print("Value received Sw3: ");
   Serial.println(value);
+  if(value == 1)
+    {
+      digitalWrite(21,HIGH);
+      Serial.println("21 Sw3 : on");
+    } 
+  if(value == 0)
+  {
+    digitalWrite(21,LOW);
+    Serial.println("21 Sw3 : off");
+  }
 }
 
 BLYNK_WRITE(V3) {  // เมื่อมีการส่งข้อมูลเข้ามาผ่าน Virtual Pin 1
   int value = param.asInt();  // รับค่าจาก Virtual Pin 1
   Serial.print("Value received Sw4: ");
   Serial.println(value);
+  if(value == 1)
+    {
+      digitalWrite(22,HIGH);
+      Serial.println("22 Sw4 : on");
+    } 
+  if(value == 0)
+  {
+    digitalWrite(22,LOW);
+    Serial.println("22 Sw4 : off");
+  }
 }
 
 BLYNK_WRITE(V4) {  // เมื่อมีการส่งข้อมูลเข้ามาผ่าน Virtual Pin 1
   int value = param.asInt();  // รับค่าจาก Virtual Pin 1
   Serial.print("Value received Sw5: ");
   Serial.println(value);
+  if(value == 1)
+    {
+      digitalWrite(15,HIGH);
+      Serial.println("15 Sw5 : on");
+    } 
+  if(value == 0)
+  {
+    digitalWrite(15,LOW);
+    Serial.println("15 Sw5 : off");
+  }
 }
 
 BLYNK_WRITE(V5) {  // เมื่อมีการส่งข้อมูลเข้ามาผ่าน Virtual Pin 1
   int value = param.asInt();  // รับค่าจาก Virtual Pin 1
   Serial.print("Value received Sw6: ");
   Serial.println(value);
+  if(value == 1)
+    {
+      digitalWrite(2,HIGH);
+      Serial.println("2 Sw6 : on");
+    } 
+  if(value == 0)
+  {
+    digitalWrite(2,LOW);
+    Serial.println("2 Sw6 : off");
+  }
 }
 
 BLYNK_WRITE(V6) {  // เมื่อมีการส่งข้อมูลเข้ามาผ่าน Virtual Pin 1
   int value = param.asInt();  // รับค่าจาก Virtual Pin 1
   Serial.print("Value received Sw7: ");
   Serial.println(value);
+  if(value == 1)
+    {
+      digitalWrite(0,HIGH);
+      Serial.println("0 Sw7 : on");
+    } 
+  if(value == 0)
+  {
+    digitalWrite(0,LOW);
+    Serial.println("0 Sw7 : off");
+  }
 }
 
 BLYNK_WRITE(V7) {  // เมื่อมีการส่งข้อมูลเข้ามาผ่าน Virtual Pin 1
   int value = param.asInt();  // รับค่าจาก Virtual Pin 1
   Serial.print("Value received Sw8: ");
   Serial.println(value);
+  if(value == 1)
+    {
+      digitalWrite(4,HIGH);
+      Serial.println("4 Sw8 : on");
+    } 
+  if(value == 0)
+  {
+    digitalWrite(4,LOW);
+    Serial.println("4 Sw8 : off");
+  }
 }
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(9600);//18/19/21/22  15/2/0/4
+  pinMode(18,OUTPUT);
+  pinMode(19,OUTPUT);
+  pinMode(21,OUTPUT);
+  pinMode(22,OUTPUT);
+  pinMode(15,OUTPUT);
+  pinMode(2,OUTPUT);
+  pinMode(0,OUTPUT);
+  pinMode(4,OUTPUT);
+
   search_wifi();
   delay(5000);
-  //WiFi.begin(ssid,pass);
-  /*
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.println("Connecting to WiFi...");
-  }
-  Serial.println("Connected to WiFi : "+String(WiFi.localIP()));
-  */
   // เชื่อมต่อกับ Blynk
   Serial.println("Connecting to Bylnk 2.0 .....");
   Blynk.begin(auth,ssid,pass);
@@ -103,9 +193,16 @@ void setup()
     Serial.println(" wait blynk 2.0 ....");
   }
 
+
   //Serial.println("Connected to Blynk!");
-  Serial.println("Connected to WiFi : "+String(WiFi.localIP()));
+  Serial.print("Connected to WiFi : ");
+  Serial.println(WiFi.localIP());
   Serial.println("connected blynk complete !!!");
+
+
+
+
+
 }
 
 void loop()
