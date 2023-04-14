@@ -207,6 +207,7 @@ void setup()
         if(switch_wifi > 10)
         {
           count_timeout =1;
+          Serial.println("Change to ssid2 ...");
         }
       }
     }
@@ -220,6 +221,7 @@ void setup()
         if(switch_wifi > 10)
         {
           count_timeout =0;
+          Serial.println("Change to ssid1 ...");
         }
       }
     }
